@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindTools Pro</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -200,7 +201,7 @@
                     <div class="w-10 h-10 md:w-12 md:h-12 bg-[#8B5CF6]/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                         <span class="text-xl md:text-2xl">🧠</span>
                     </div>
-                    <h3 className="text-white font-bold text-base md:text-lg mb-2 md:mb-3">Inteligência & Produtividade</h3>
+                    <h3 class="text-white font-bold text-base md:text-lg mb-2 md:mb-3">Inteligência & Produtividade</h3>
                     <div class="text-[#8A93A6] text-xs md:text-sm flex flex-col gap-1.5 md:gap-2">
                         <p>• <strong>Chat e Conversação:</strong> ChatGPT 5 PRO, Claude Sonnet 4, Super Grok 4, DeepSeek.</p>
                         <p>• <strong>Ebooks e PDFs:</strong> Gamma App, I Love PDF, BK Reviews.</p>
@@ -212,7 +213,7 @@
                     <div class="w-10 h-10 md:w-12 md:h-12 bg-[#3DDCFF]/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                         <span class="text-xl md:text-2xl">📊</span>
                     </div>
-                    <h3 className="text-white font-bold text-base md:text-lg mb-2 md:mb-3">Design & Market Intelligence</h3>
+                    <h3 class="text-white font-bold text-base md:text-lg mb-2 md:mb-3">Design & Market Intelligence</h3>
                     <div class="text-[#8A93A6] text-xs md:text-sm flex flex-col gap-1.5 md:gap-2">
                         <p>• <strong>Assets Premium:</strong> Canva PRO, Envato, Freepik, Motion Array, Adobe Stock.</p>
                         <p>• <strong>Marketing & SEO:</strong> Semrush Business, Moz, Ubersuggest.</p>
@@ -251,9 +252,11 @@
         
         function setView(viewName) {
             views.forEach(v => {
-                document.getElementById(`view-${v}`).classList.add('hidden');
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
             });
-            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            const targetEl = document.getElementById(`view-${viewName}`);
+            if (targetEl) targetEl.classList.remove('hidden');
             
             // Back button logic
             const btnBack = document.getElementById('btn-back');
