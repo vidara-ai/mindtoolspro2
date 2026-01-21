@@ -15,35 +15,144 @@
             overflow-x: hidden;
             color: white;
         }
+
+        /* --- BACKGROUND TECH SYSTEM --- */
+        .tech-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            background-color: #060B1A;
+            overflow: hidden;
+        }
+
+        /* Nebulas / Atmosphere */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: nebulaFloat 25s infinite alternate ease-in-out;
+        }
+        .nebula-1 { width: 80%; height: 80%; top: -20%; left: -20%; background: radial-gradient(circle, #0A132E 0%, transparent 70%); }
+        .nebula-2 { width: 70%; height: 70%; bottom: -10%; right: -10%; background: radial-gradient(circle, #120C2E 0%, transparent 70%); }
+        .nebula-3 { width: 60%; height: 60%; top: 10%; right: 10%; background: radial-gradient(circle, #00C2D6 0%, transparent 70%); opacity: 0.08; }
+
+        /* Neural Network Overlay */
+        .neural-net {
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10L90 90M90 10L10 90' stroke='rgba(31, 195, 255, 0.05)' stroke-width='0.5'/%3E%3Ccircle cx='10' cy='10' r='1' fill='rgba(31, 195, 255, 0.1)'/%3E%3Ccircle cx='90' cy='90' r='1' fill='rgba(31, 195, 255, 0.1)'/%3E%3Ccircle cx='50' cy='50' r='1.5' fill='rgba(0, 194, 214, 0.2)'/%3E%3C/svg%3E");
+            background-size: 150px 150px;
+            opacity: 0.4;
+        }
+
+        /* Data Streams */
+        .data-stream {
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #1FC3FF, transparent);
+            opacity: 0.2;
+            animation: streamDown var(--duration) linear infinite;
+        }
+
+        /* 3D Perspective Grid */
+        .grid-perspective {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(31, 195, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(31, 195, 255, 0.1) 1px, transparent 1px);
+            background-size: 80px 80px;
+            transform: perspective(1000px) rotateX(65deg);
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+            animation: gridMove 60s linear infinite;
+        }
+
+        /* Central Energy Hub */
+        .energy-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 194, 214, 0.12) 0%, transparent 65%);
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes streamDown {
+            0% { transform: translateY(-100px); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        @keyframes nebulaFloat {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(3%, 3%) scale(1.05); }
+        }
+        @keyframes gridMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 800px; }
+        }
+
+        /* --- UI STYLES --- */
         .gradient-headline {
             background: linear-gradient(90deg, #3DDCFF 0%, #8B5CF6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
+        .neon-animation {
+            animation: neonPulse 4s infinite ease-in-out;
         }
-        .animate-zoom-in {
-            animation: zoomIn 0.5s ease-out forwards;
+        @keyframes neonPulse {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(31, 195, 255, 0.3)); }
+            50% { filter: drop-shadow(0 0 25px rgba(31, 195, 255, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4)); }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .alert-pulse {
+            animation: alertGlow 2s infinite ease-in-out;
         }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes alertGlow {
+            0%, 100% { 
+                box-shadow: 0 0 5px rgba(245, 196, 81, 0.2);
+                border-color: rgba(245, 196, 81, 0.6);
+            }
+            50% { 
+                box-shadow: 0 0 15px rgba(245, 196, 81, 0.5);
+                border-color: rgba(245, 196, 81, 1);
+            }
         }
+
+        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-zoom-in { animation: zoomIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body class="relative min-h-screen flex items-center justify-center overflow-x-hidden">
-    <!-- Background Decorative Gradients -->
-    <div class="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
-        <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#0A132E] blur-[100px] md:blur-[120px] opacity-60"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-[#120C2E] blur-[100px] md:blur-[120px] opacity-60"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(31,195,255,0.05)_0%,transparent_70%)]"></div>
-        <div class="absolute inset-0 opacity-[0.05] md:opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+    
+    <!-- TECH BACKGROUND LAYER SYSTEM -->
+    <div class="tech-bg-container">
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="nebula nebula-3"></div>
+        <div class="grid-perspective"></div>
+        <div class="neural-net"></div>
+        <div id="data-streams"></div>
+        <div class="energy-hub"></div>
+        <!-- Abstract grain -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]"></div>
     </div>
 
     <!-- Back Button -->
@@ -63,18 +172,14 @@
             <span class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight">
                 As melhores IAs da atualidade
             </span>
-            <span class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold gradient-headline tracking-tight leading-tight">
+            <span class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold gradient-headline neon-animation tracking-tight leading-tight">
                 num só lugar.
             </span>
         </h1>
 
-        <p class="mb-8 md:mb-10 text-[#C7CFDB] text-base md:text-xl max-w-2xl leading-relaxed px-2">
-            Centralize suas ferramentas de inteligência artificial, aumente sua produtividade e tenha acesso ilimitado às principais tecnologias do mercado.
-        </p>
-
-        <div class="mb-8 md:mb-10 w-full max-w-xl">
-            <div class="bg-[#1A1405] border border-[#F5C451] rounded-xl md:rounded-2xl p-3 md:p-4 flex items-center justify-center shadow-lg mx-2">
-                <p class="text-[#F5C451] font-bold text-xs md:text-base text-center">
+        <div class="mb-8 md:mb-10 w-full flex justify-center">
+            <div class="bg-[#1A1405] border border-[#F5C451]/60 rounded-lg md:rounded-xl px-4 py-2.5 md:px-6 md:py-3 inline-flex items-center justify-center shadow-lg mx-2 alert-pulse transition-all">
+                <p class="text-[#F5C451] font-bold text-[10px] sm:text-xs md:text-base whitespace-nowrap">
                     ⚠️ O CADASTRO DEVE SER REALIZADO NO MESMO E-MAIL DA COMPRA.
                 </p>
             </div>
@@ -88,15 +193,8 @@
         </button>
 
         <div class="flex flex-col items-center gap-3 md:gap-4">
-            <div class="flex -space-x-2 md:-space-x-3 overflow-hidden">
-                <img class="inline-block h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-[#060B1A] border border-[rgba(0,194,214,0.35)]" src="https://picsum.photos/seed/124/100/100" alt="Usuário 1">
-                <img class="inline-block h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-[#060B1A] border border-[rgba(0,194,214,0.35)]" src="https://picsum.photos/seed/125/100/100" alt="Usuário 2">
-                <img class="inline-block h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-[#060B1A] border border-[rgba(0,194,214,0.35)]" src="https://picsum.photos/seed/126/100/100" alt="Usuário 3">
-                <img class="inline-block h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-[#060B1A] border border-[rgba(0,194,214,0.35)]" src="https://picsum.photos/seed/127/100/100" alt="Usuário 4">
-                <img class="inline-block h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-[#060B1A] border border-[rgba(0,194,214,0.35)]" src="https://picsum.photos/seed/128/100/100" alt="Usuário 5">
-            </div>
             <p class="text-[#8A93A6] text-[10px] md:text-sm font-bold tracking-widest uppercase">
-                +25.000 PROFISSIONAIS JÁ USAM O MINDTOOLS
+                +12.700 PROFISSIONAIS JÁ USAM O MINDTOOLS PRO
             </p>
         </div>
     </section>
@@ -271,114 +369,67 @@
 
         function handleSignup(e) {
             e.preventDefault();
-            const email = document.getElementById('signup-email').value;
+            const btn = document.getElementById('btn-signup-submit');
+            const errorEl = document.getElementById('signup-error');
             const pass = document.getElementById('signup-password').value;
             const confirm = document.getElementById('signup-confirm').value;
-            const errorEl = document.getElementById('signup-error');
-            const btn = document.getElementById('btn-signup-submit');
 
             errorEl.classList.add('hidden');
+            if (pass.length < 6) { errorEl.innerText = 'Mínimo 6 caracteres.'; errorEl.classList.remove('hidden'); return; }
+            if (pass !== confirm) { errorEl.innerText = 'Senhas diferentes.'; errorEl.classList.remove('hidden'); return; }
 
-            if (pass.length < 6) {
-                errorEl.innerText = 'A senha deve ter pelo menos 6 caracteres.';
-                errorEl.classList.remove('hidden');
-                return;
-            }
-            if (pass !== confirm) {
-                errorEl.innerText = 'As senhas não coincidem.';
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            btn.innerHTML = `<div class="w-4 h-4 border-2 border-[#021018]/30 border-t-[#021018] rounded-full animate-spin"></div>`;
+            btn.innerHTML = `<div class="w-4 h-4 border-2 border-t-transparent border-black rounded-full animate-spin"></div>`;
             btn.disabled = true;
-
-            setTimeout(() => {
-                btn.innerHTML = 'Criar conta';
-                btn.disabled = false;
-                setView('success');
-            }, 1500);
+            setTimeout(() => { setView('success'); btn.innerHTML = 'Criar conta'; btn.disabled = false; }, 1200);
         }
 
         function handleSignin(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-signin-submit');
-            
-            btn.innerHTML = `<div class="w-4 h-4 border-2 border-[#021018]/30 border-t-[#021018] rounded-full animate-spin"></div>`;
+            btn.innerHTML = `<div class="w-4 h-4 border-2 border-t-transparent border-black rounded-full animate-spin"></div>`;
             btn.disabled = true;
-
-            setTimeout(() => {
-                btn.innerHTML = 'Entrar';
-                btn.disabled = false;
-                setView('dashboard');
-            }, 1500);
+            setTimeout(() => { setView('dashboard'); btn.innerHTML = 'Entrar'; btn.disabled = false; }, 1200);
         }
 
         function startSimulation() {
             const overlay = document.getElementById('terminal-overlay');
             const content = document.getElementById('terminal-content');
             overlay.classList.remove('hidden');
-            content.innerHTML = '';
+            content.innerHTML = '<div id="terminal-cursor" class="flex items-center gap-2 text-[#00C2D6]"><span class="opacity-50 mr-2">></span> <span class="w-1.5 h-3.5 bg-[#00C2D6] animate-pulse"></span></div>';
 
-            const steps = [
-                "Conectando ao Host... OK!",
-                "Verificando IP... OK!",
-                "Configurando porta... OK!",
-                "Atualizando o servidor... Falha!"
-            ];
-
+            const steps = ["Iniciando cluster... OK", "Ajustando latência... OK", "Sincronizando modelos... Falha"];
             steps.forEach((step, i) => {
                 setTimeout(() => {
                     const div = document.createElement('div');
-                    div.className = `animate-fade-in ${step.includes('Falha') ? 'text-red-400' : 'text-[#00C2D6]'}`;
+                    div.className = step.includes('Falha') ? 'text-red-400' : 'text-[#00C2D6]';
                     div.innerHTML = `<span class="opacity-50 mr-2">></span> ${step}`;
-                    content.appendChild(div);
-
-                    if (i === steps.length - 1) {
-                        setTimeout(showTerminalError, 800);
-                    }
-                }, (i + 1) * 800);
+                    content.insertBefore(div, document.getElementById('terminal-cursor'));
+                    if (i === steps.length - 1) setTimeout(showTerminalError, 600);
+                }, (i + 1) * 700);
             });
-            
-            // Cursor
-            const cursorDiv = document.createElement('div');
-            cursorDiv.id = 'terminal-cursor';
-            cursorDiv.className = 'flex items-center gap-2 text-[#00C2D6]';
-            cursorDiv.innerHTML = `<span class="opacity-50 mr-2">></span> <span class="w-1.5 h-3.5 bg-[#00C2D6] animate-pulse"></span>`;
-            content.appendChild(cursorDiv);
         }
 
         function showTerminalError() {
             const content = document.getElementById('terminal-content');
-            const cursor = document.getElementById('terminal-cursor');
-            if(cursor) cursor.remove();
-
-            const errorBox = document.createElement('div');
-            errorBox.className = "mt-4 p-4 md:p-6 bg-red-500/10 border border-red-500/40 rounded-xl animate-zoom-in";
-            errorBox.innerHTML = `
-                <div class="flex items-start gap-3 md:gap-4">
-                    <span class="text-2xl md:text-3xl mt-0.5">⚠️</span>
-                    <div class="flex flex-col gap-1.5">
-                        <p class="text-red-400 font-bold text-sm md:text-base leading-tight">
-                            Neste momento, estamos com uma alta demanda simultânea. Desculpe-nos pelo transtorno.
-                        </p>
-                        <p class="text-red-400/80 text-[11px] md:text-xs">
-                            Previsão de normalização: em até 6 horas.
-                        </p>
-                    </div>
-                </div>
-                <button onclick="closeTerminal()" class="mt-5 w-full py-2.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-all font-bold border border-red-500/20 text-xs uppercase tracking-widest">
-                    FECHAR TERMINAL
-                </button>
-            `;
-            content.appendChild(errorBox);
+            const err = document.createElement('div');
+            err.className = "mt-4 p-4 bg-red-500/10 border border-red-500/40 rounded-xl animate-zoom-in";
+            err.innerHTML = `<p class="text-red-400 font-bold mb-2">Servidor em manutenção.</p><p class="text-red-400/80 text-xs mb-4">Alta demanda simultânea detectada. Tente novamente em breve.</p><button onclick="closeTerminal()" class="w-full py-2 bg-red-500/20 text-red-400 rounded font-bold text-[10px]">FECHAR</button>`;
+            content.appendChild(err);
         }
 
-        function closeTerminal() {
-            document.getElementById('terminal-overlay').classList.add('hidden');
+        function closeTerminal() { document.getElementById('terminal-overlay').classList.add('hidden'); }
+
+        // Data streams and particles
+        const streamContainer = document.getElementById('data-streams');
+        for (let i = 0; i < 15; i++) {
+            const s = document.createElement('div');
+            s.className = 'data-stream';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.setProperty('--duration', (Math.random() * 5 + 3) + 's');
+            s.style.animationDelay = Math.random() * 5 + 's';
+            streamContainer.appendChild(s);
         }
 
-        // Init
         setView('hero');
     </script>
 </body>
